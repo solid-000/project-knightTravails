@@ -3,12 +3,11 @@ import "./styles.css";
 
 let grid = new Map();
 makeGrid(grid);
-knightMoves([1, 1], [5, 6]);
+knightMoves([1, 1], [8, 8]);
 
 function knightMoves(start, end) {
   const paths = getPaths(start, end);
   const shortest = getShortestPath(paths);
-  console.log(paths);
   console.log(shortest);
 }
 
@@ -99,13 +98,10 @@ function nextTiles(currentPos) {
 
 function getShortestPath(arr) {
   const least = arr.reduce((acc, val, ind) => {
-    if (ind === 0 || val.length < acc[0].length) {
-      return [val];
-    }
-    if (val.length === acc.length) {
-      acc.push(val);
+    if (ind === 0 || val.length < acc.length) {
+      return val;
     }
     return acc;
-  }, []);
+  });
   return least;
 }
