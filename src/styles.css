@@ -1,0 +1,19 @@
+*{
+    box-sizing: border-box;
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+}
+
+.board{
+    aspect-ratio: 1/1;
+    height: min(700px, 90%);
+    border: 10px outset gray ;
+    display: grid;
+    grid-template: repeat(8, 1fr) / repeat(8, 1fr);
+}
