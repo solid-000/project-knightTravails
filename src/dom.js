@@ -1,3 +1,4 @@
+import { grid } from "./algortihm";
 const board = document.querySelector(".board");
 
 function createGrid() {
@@ -6,8 +7,8 @@ function createGrid() {
     for (let j = 1; j <= 8; j++) {
       const tile = document.createElement("div");
       tile.classList.add("tile");
-      tile.setAttribute("data_x", i);
-      tile.setAttribute("data_y", j);
+      tile.setAttribute("pos-x", i);
+      tile.setAttribute("pos-y", j);
       board.appendChild(tile);
     }
   }
@@ -15,7 +16,7 @@ function createGrid() {
 }
 
 function colorTiles() {
-  let tiles = board.querySelectorAll(".tile");
+  const tiles = board.querySelectorAll(".tile");
   let count = 1;
   let color = "#dbdbdb";
   tiles.forEach((tile) => {

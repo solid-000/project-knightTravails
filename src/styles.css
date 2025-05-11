@@ -13,7 +13,37 @@ body{
 .board{
     aspect-ratio: 1/1;
     height: min(700px, 90%);
-    border: 10px outset gray ;
+    border: 5px solid #000000;
     display: grid;
     grid-template: repeat(8, 1fr) / repeat(8, 1fr);
+}
+.tile{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.knight{
+    position: absolute;
+    aspect-ratio: 1/1;
+    height: min(80px, 10%);
+    width: min(80px, auto);
+}
+
+.dragging{
+    border: 1px solid red;
+}
+.glowing{
+    background-color: red !important;
+}
+.over{
+    border: 2px solid black;
+}
+.destination{
+    background-color: green !important;
+}
+.destination.glowing{
+    background-color: orange !important;
+}
+.disabled{
+    cursor: no-drop;
 }

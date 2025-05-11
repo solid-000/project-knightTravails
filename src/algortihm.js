@@ -102,4 +102,4 @@ function getShortestPath(arr) {
   return least;
 }
 
-export { knightMoves };
+export { knightMoves, grid };
