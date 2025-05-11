@@ -4,7 +4,7 @@ makeGrid(grid);
 function knightMoves(start, end) {
   const paths = getPaths(start, end);
   const shortest = getShortestPath(paths);
-  console.log(shortest);
+  return shortest;
 }
 
 function getPaths(start, end) {

@@ -2,12 +2,14 @@
 import "./styles.css";
 import { knightMoves, grid } from "./algortihm";
 import { createGrid } from "./dom";
+import LeaderLine from "leader-line-new";
 
 createGrid();
 const knight = document.querySelector(".knight");
 const tiles = document.querySelectorAll(".tile");
 let nextMoves;
 let currentPath = [];
+let shortestPath = [];
 let end = [];
 let start = [];
 newRoundStart();
@@ -15,6 +17,7 @@ newRoundStart();
 function newRoundStart() {
   start = [getRand(), getRand()];
   end = [getRand(), getRand()];
+  shortestPath = knightMoves(start, end);
   if (JSON.stringify(start) === JSON.stringify(end)) {
     end = [getRand(), getRand()];
   }
@@ -86,7 +89,6 @@ function setKnightPos(x, y) {
   knight.setAttribute("pos-y", y);
   document.querySelector(`.tile[pos-x='${x}'][pos-y='${y}']`).append(knight);
   currentPath.push([x, y]);
-  console.log(currentPath);
   if (JSON.stringify([x, y]) === JSON.stringify(end)) {
     alert("success");
     knight.setAttribute("draggable", "false");
@@ -112,3 +114,33 @@ function reset() {
 document.querySelector("#reset").addEventListener("click", (e) => {
   reset();
 });
+
+// const line = new LeaderLine(
+//   document.querySelector(`.tile[pos-x='1'][pos-y='2']`),
+//   document.querySelector(`.tile[pos-x='5'][pos-y='5']`)
+// );
+
+function showResult() {}
+
+drawLine(shortestPath);
+
+function drawLine(arr, whose) {
+  let color;
+  if (whose === "user") {
+    color = "green";
+  } else {
+    color = "blue";
+  }
+  for (let i = 0; i < arr.length; i++) {
+    if (i + 1 < arr.length) {
+      new LeaderLine(
+        document.querySelector(
+          `.tile[pos-x='${arr[i][0]}'][pos-y='${arr[i][1]}']`
+        ),
+        document.querySelector(
+          `.tile[pos-x='${arr[i + 1][0]}'][pos-y='${arr[i + 1][1]}']`
+        )
+      );
+    }
+  }
+}

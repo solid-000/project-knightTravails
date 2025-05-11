@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "css-loader": "^7.1.2",
+    "leader-line-new": "^1.1.9",
     "style-loader": "^4.0.0"
   }
 }
