@@ -1,18 +1,116 @@
+@font-face{
+    font-family: blackchancery;
+    src: url(./asset/fonts/BLKCHCRY.woff2) format('woff2');
+}
 *{
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    grid-template: 100px 1fr / min(400px, 20vw) 8fr;
     height: 100vh;
     width: 100vw;
     margin: 0;
+
+}
+
+nav{
+    grid-area: 1 / 1 / 2/ 3;
+    display: flex;
+    padding: 5px 25px;
+    align-items: center;
+    gap: 15px;
+}
+.logo{
+    display: flex;
+    align-items: center;
+    font-size: 40px;
+    gap: 8px;
+    font-weight: 700;
+    font-family: blackchancery;
+    margin-right: auto;
+}
+.logo>img{
+    height: 70px;
+}
+.nav-button{
+    display: flex;
+    align-items: center;
+    height: 40%;
+    border-radius: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 13px;
+    gap: 2px;
+    background-color: inherit;
+    border: 2px solid black;
+}
+.nav-button:hover{
+    border: 3px solid black;
+}
+.nav-button:active{
+    background-color: #eeeeee;
+}
+.nav-button>img{
+    height: 90%;
+}
+
+.sidebar{
+    padding: 0 0 100px 0;
+    display: grid;
+    grid-template: 1fr / 1fr 1fr;
+    justify-content: center;
+}
+
+.trail{
+    text-align: center;
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid black;
+    border-radius: 0 15px 15px 0;
+    background-color: #f7f4f2;
+    height: fit-content;
+}
+.comp{
+    overflow: hidden;
+    max-width: 0;
+    border: 0;
+    transition: max-width 1s;
+}
+
+.trail>div:first-child{
+    font-size: 20px;
+    font-family: sans-serif;
+    font-weight: 600;
+    padding: 10px;
+    border-bottom: 1px solid black;
+}
+.route{
+    line-height: 1.6rem;
+    padding: 5px;
+    width: 10ch;
+    font-size: 18px;
+}
+.comp.active{
+    max-width: 100%;
+    border: 1px solid black;
+    border-radius: 0 15px 15px 0;
+    border-left: 0;
+}
+.user.active{
+    border-radius: 0;
 }
 
 .board{
+    margin: 0 auto auto ;
+    grid-area: 2 / 2 / 3 / 3;
     aspect-ratio: 1/1;
-    height: min(700px, 90%);
+    height: min(700px, 90vh);
     border: 5px solid #000000;
     display: grid;
     grid-template: repeat(8, 1fr) / repeat(8, 1fr);
@@ -32,6 +130,10 @@ body{
 .dragging{
     border: 1px solid red;
 }
+.start{
+    background-color: yellow !important;
+}
+
 .glowing{
     background-color: red !important;
 }

@@ -6,8 +6,33 @@
     <title>Document</title>
 </head>
 <body>
-    <button id="reset">reset</button>
-    <img class="knight" src="./asset/images/knight_white.svg" draggable="true" pos-x="1" pos-y="2"></img>
-    <div class="board"></div>
+    <nav class="nav">
+        <div class="logo">
+            <img src="./asset/images/knight_black.svg" alt="chess knight logo">
+            Knight Travails
+        </div>
+        <button id="reset" class="nav-button">
+            <img src="./asset/images/reset.svg" alt="reset">Reset Position</button>
+        <button id="new" class="nav-button">
+            <img src="./asset/images/plus.svg" alt="new-round">New Round</button>
+    </nav>
+
+    <div class="sidebar">
+        <div class="user trail">
+            <div>Knight's Trail</div>
+            <div class="route">
+            </div>
+        </div>
+        <div class="comp trail">
+            <div>Shortest Path</div>
+            <div class="route">
+            </div>
+        </div>
+
+    </div>
+    
+    <div class="board">
+        <img class="knight" src="./asset/images/knight_white.svg" draggable="true" pos-x="1" pos-y="2"></img>
+    </div>
 </body>
 </html>

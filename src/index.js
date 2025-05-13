@@ -7,6 +7,9 @@ import LeaderLine from "leader-line-new";
 createGrid();
 const knight = document.querySelector(".knight");
 const tiles = document.querySelectorAll(".tile");
+const userTrail = document.querySelector(".user .route");
+const compTrail = document.querySelector(".comp .route");
+
 let nextMoves;
 let currentPath = [];
 let shortestPath = [];
@@ -21,9 +24,12 @@ function newRoundStart() {
   if (JSON.stringify(start) === JSON.stringify(end)) {
     end = [getRand(), getRand()];
   }
+  document
+    .querySelector(`.tile[pos-x='${start[0]}'][pos-y='${start[1]}']`)
+    .classList.add("start");
+
   setKnightPos(start[0], start[1]);
   knight.setAttribute("draggable", "true");
-
   const desTile = document.querySelector(
     `.tile[pos-x='${end[0]}'][pos-y='${end[1]}']`
   );
@@ -89,8 +95,11 @@ function setKnightPos(x, y) {
   knight.setAttribute("pos-y", y);
   document.querySelector(`.tile[pos-x='${x}'][pos-y='${y}']`).append(knight);
   currentPath.push([x, y]);
+  let child = document.createElement("div");
+  child.textContent = `${x},${y}`;
+  userTrail.append(child);
   if (JSON.stringify([x, y]) === JSON.stringify(end)) {
-    alert("success");
+    showResult();
     knight.setAttribute("draggable", "false");
   }
 }
@@ -107,6 +116,10 @@ function getNextPos(x, y) {
 
 function reset() {
   currentPath = [];
+  clearLines();
+  deactivateBoard();
+  userTrail.textContent = "";
+  compTrail.textContent = "";
   setKnightPos(start[0], start[1]);
   knight.setAttribute("draggable", "true");
 }
@@ -115,14 +128,17 @@ document.querySelector("#reset").addEventListener("click", (e) => {
   reset();
 });
 
-// const line = new LeaderLine(
-//   document.querySelector(`.tile[pos-x='1'][pos-y='2']`),
-//   document.querySelector(`.tile[pos-x='5'][pos-y='5']`)
-// );
-
-function showResult() {}
-
-drawLine(shortestPath);
+function showResult() {
+  if (currentPath.length <= shortestPath.length) {
+    alert("Found");
+  } else {
+    alert("nuh uh");
+  }
+  printPath();
+  activateBoard();
+  drawLine(currentPath, "user");
+  drawLine(shortestPath);
+}
 
 function drawLine(arr, whose) {
   let color;
@@ -139,8 +155,32 @@ function drawLine(arr, whose) {
         ),
         document.querySelector(
           `.tile[pos-x='${arr[i + 1][0]}'][pos-y='${arr[i + 1][1]}']`
-        )
+        ),
+        { color: color }
       );
     }
   }
+}
+function clearLines() {
+  let lines = document.querySelectorAll(".leader-line");
+  for (let line of lines) {
+    line.remove();
+  }
+}
+
+function printPath() {
+  shortestPath.forEach((arr) => {
+    let div = document.createElement("div");
+    div.textContent = `${arr[0]},${arr[1]}`;
+    compTrail.append(div);
+  });
+}
+
+function activateBoard() {
+  document.querySelector(".user").classList.add("active");
+  document.querySelector(".comp").classList.add("active");
+}
+function deactivateBoard() {
+  document.querySelector(".user").classList.remove("active");
+  document.querySelector(".comp").classList.remove("active");
 }
