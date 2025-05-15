@@ -69,7 +69,7 @@ knight.addEventListener("dragstart", (e) => {
   });
 });
 knight.addEventListener("dragend", (e) => {
-  moveSound.play();
+  // moveSound.play();
   tiles.forEach((tile) => {
     tile.classList.remove("glowing");
     tile.classList.remove("over");
@@ -105,6 +105,7 @@ tiles.forEach((tile) => {
     let tilePos = [+tile.getAttribute("pos-x"), +tile.getAttribute("pos-y")];
     nextMoves.forEach((move) => {
       if (JSON.stringify(move) === JSON.stringify(tilePos)) {
+        moveSound.play();
         setKnightPos(tilePos[0], tilePos[1]);
       }
     });
@@ -133,20 +134,6 @@ function getKnightPos() {
 }
 function getNextPos(x, y) {
   nextMoves = grid.get(JSON.stringify(getKnightPos()));
-}
-
-function reset() {
-  resultBox.classList.remove("win");
-  resultBox.classList.remove("lose");
-  resultBox.textContent = "";
-
-  currentPath = [];
-  clearLines();
-  deactivateBoard();
-  userTrail.textContent = "";
-  compTrail.textContent = "";
-  setKnightPos(start[0], start[1]);
-  knight.setAttribute("draggable", "true");
 }
 
 function showResult() {
@@ -237,8 +224,27 @@ document.querySelector("#reset").addEventListener("click", (e) => {
   reset();
 });
 
+function reset() {
+  resultBox.classList.remove("win");
+  resultBox.classList.remove("lose");
+  resultBox.textContent = "";
+
+  currentPath = [];
+  clearLines();
+  deactivateBoard();
+  userTrail.textContent = "";
+  compTrail.textContent = "";
+  setKnightPos(start[0], start[1]);
+  knight.setAttribute("draggable", "true");
+}
+
 document.querySelector("#new").addEventListener("click", (e) => {
   currentPath = [];
+
+  resultBox.classList.remove("win");
+  resultBox.classList.remove("lose");
+  resultBox.textContent = "";
+
   for (let tile of tiles) {
     tile.classList.remove("start");
     tile.classList.remove("destination");
