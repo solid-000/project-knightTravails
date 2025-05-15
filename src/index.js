@@ -9,6 +9,24 @@ const knight = document.querySelector(".knight");
 const tiles = document.querySelectorAll(".tile");
 const userTrail = document.querySelector(".user .route");
 const compTrail = document.querySelector(".comp .route");
+compTrail.textContent = "";
+const resultBox = document.querySelector(".result");
+
+const tryAgain = document.createElement("button");
+const reveal = document.createElement("button");
+reveal.classList.add("resBtn");
+tryAgain.classList.add("resBtn");
+tryAgain.textContent = "try again?";
+reveal.textContent = "reveal the path";
+const lowerLine = document.createElement("div");
+
+lowerLine.append(
+  createSpan("Wouldst thou "),
+  tryAgain,
+  createSpan(" Or shall I "),
+  reveal,
+  createSpan(" thou could not see?")
+);
 
 let nextMoves;
 let currentPath = [];
@@ -115,6 +133,10 @@ function getNextPos(x, y) {
 }
 
 function reset() {
+  resultBox.classList.remove("win");
+  resultBox.classList.remove("lose");
+  resultBox.textContent = "";
+
   currentPath = [];
   clearLines();
   deactivateBoard();
@@ -124,20 +146,24 @@ function reset() {
   knight.setAttribute("draggable", "true");
 }
 
-document.querySelector("#reset").addEventListener("click", (e) => {
-  reset();
-});
-
 function showResult() {
   if (currentPath.length <= shortestPath.length) {
-    alert("Found");
+    resultBox.classList.add("win");
+    resultBox.textContent = `In ${currentPath.length - 1} steps, thou hast found the one true path. None walk a swifter road.`;
+    activateBoard();
+    printPath();
+    drawLine(currentPath, "user");
+    drawLine(shortestPath);
   } else {
-    alert("nuh uh");
+    resultBox.classList.add("lose");
+    resultBox.append(
+      (document.createElement("div").textContent =
+        `Thou hast walked the path in ${currentPath.length - 1} steps... yet the true, most hallowed way lies still hidden.`),
+      lowerLine
+    );
+    resultBox.append(lowerLine);
+    drawLine(currentPath, "user");
   }
-  printPath();
-  activateBoard();
-  drawLine(currentPath, "user");
-  drawLine(shortestPath);
 }
 
 function drawLine(arr, whose) {
@@ -184,3 +210,37 @@ function deactivateBoard() {
   document.querySelector(".user").classList.remove("active");
   document.querySelector(".comp").classList.remove("active");
 }
+
+function createSpan(text) {
+  const span = document.createElement("span");
+  span.textContent = text;
+  return span;
+}
+
+tryAgain.addEventListener("click", () => {
+  reset();
+});
+
+reveal.addEventListener("click", () => {
+  drawLine(shortestPath);
+  if (compTrail.textContent === "") {
+    printPath();
+  }
+  activateBoard();
+});
+
+document.querySelector("#reset").addEventListener("click", (e) => {
+  reset();
+});
+
+document.querySelector("#new").addEventListener("click", (e) => {
+  currentPath = [];
+  for (let tile of tiles) {
+    tile.classList.remove("start");
+    tile.classList.remove("destination");
+  }
+  deactivateBoard();
+  clearLines();
+  userTrail.textContent = "";
+  newRoundStart();
+});
