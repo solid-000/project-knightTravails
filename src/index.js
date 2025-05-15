@@ -3,6 +3,7 @@ import "./styles.css";
 import { knightMoves, grid } from "./algortihm";
 import { createGrid } from "./dom";
 import LeaderLine from "leader-line-new";
+import audioFile from "./asset/sound/move-self.mp3";
 
 createGrid();
 const knight = document.querySelector(".knight");
@@ -11,6 +12,7 @@ const userTrail = document.querySelector(".user .route");
 const compTrail = document.querySelector(".comp .route");
 compTrail.textContent = "";
 const resultBox = document.querySelector(".result");
+const moveSound = new Audio(audioFile);
 
 const tryAgain = document.createElement("button");
 const reveal = document.createElement("button");
@@ -67,6 +69,7 @@ knight.addEventListener("dragstart", (e) => {
   });
 });
 knight.addEventListener("dragend", (e) => {
+  moveSound.play();
   tiles.forEach((tile) => {
     tile.classList.remove("glowing");
     tile.classList.remove("over");
@@ -195,6 +198,7 @@ function clearLines() {
 }
 
 function printPath() {
+  compTrail.textContent = "";
   shortestPath.forEach((arr) => {
     let div = document.createElement("div");
     div.textContent = `${arr[0]},${arr[1]}`;
