@@ -13,6 +13,7 @@ function createGrid() {
     }
   }
   colorTiles();
+  numbers();
 }
 
 function colorTiles() {
@@ -28,6 +29,15 @@ function colorTiles() {
     }
     count++;
   });
+}
+
+function numbers() {
+  for (let i = 1; i <= 8; i++) {
+    let tileHor = document.querySelector(`.tile[pos-x='1'][pos-y='${i}']`);
+    let tileVer = document.querySelector(`.tile[pos-x='${i}'][pos-y='1']`);
+    tileHor.setAttribute("data-label", i);
+    tileVer.setAttribute("data-label", i);
+  }
 }
 
 export { createGrid };
