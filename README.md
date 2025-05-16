@@ -4,7 +4,7 @@ As part of the [The Odin Project](https://www.theodinproject.com/lessons/javascr
 
 ## Preview
 
-![preview](/src/asset/preview.png)
+![preview](/src/asset/preview1.png)
 
 👉[Live Demo](https://solid-000.github.io/project-knightTravails/)
 
